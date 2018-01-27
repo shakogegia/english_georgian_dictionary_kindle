@@ -59,3 +59,10 @@ Thats it!
 
 ### Install on Kindle
 Just copy `dict.mobi` file to your Kindle's dictionary folder
+
+
+## Contributing
+
+Contributions are more than welcome!
+
+Help this project to collect free translations for anyone 
