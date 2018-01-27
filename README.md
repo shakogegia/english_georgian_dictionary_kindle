@@ -9,7 +9,7 @@ You can view/add/edit/delete words from database
 ![alt text](./screenshots/admin.png "Admin Panel")
 
 <p align="center"> 
-<img src="./screenshots/kindle.jpg">
+<img src="./screenshots/kindle.png">
 </p>
 
 ### Installation
