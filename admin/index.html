@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+</header>
+<body>
+    <section class="section" id="app">
+        <div class="container">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Word Database
+                    </p>
+                    <div class="columns">
+                        <div class="column">
+                            <button class="button is-primary is-small" @click="add()">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <div class="content">
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th width="5"><abbr title="Position">#</abbr></th>
+                                    <th>Word</th>
+                                    <th>Translation</th>
+                                    <th width="140">Action</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr v-for="item in words">
+                                    <th><abbr title="Position">#</abbr></th>
+                                    <th><input type="text" class="input" v-model="item.word"></th>
+                                    <th><input type="text" class="input" v-model="item.translation"></th>
+                                    <th>
+                                        <button class="button is-success" @click="save(item)" :class="{'is-loading': item.isLoading}">
+                                            Save
+                                        </button>
+                                        <button class="button is-danger" @click="remove(item)" :class="{'is-loading': item.isLoading}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr>
+            
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            <div class="field has-addons">
+                <p class="control" v-for="n in pages">
+                    <a class="button" @click="goTo(n)">
+                        <span>{{n}}</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://vuejs.org/js/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

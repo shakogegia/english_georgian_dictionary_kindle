@@ -4,19 +4,24 @@
   "description": "English to Georgian Dictionary for Kindle e-Readers",
   "main": "index.js",
   "dependencies": {
+    "bulma": "^0.6.2",
     "colors": "^1.1.2",
     "commander": "^2.13.0",
+    "express": "^4.16.2",
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "http-server": "^0.11.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate": "node generate.js"
+    "generate": "node generate.js",
+    "admin": "http-server ./admin",
+    "server": "nodemon server.js --harmony"
   },
   "repository": {
     "type": "git",

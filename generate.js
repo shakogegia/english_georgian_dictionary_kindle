@@ -36,7 +36,7 @@ class Generate {
 		return `
 			<p>
 				<idx:entry>
-					<idx:orth>${row.word}</idx:orth> &mdash; ${row.translation}
+					<idx:orth>${row.word}</idx:orth> &mdash; ${row.translation}.
 				</idx:entry>
 			</p>
 		`
