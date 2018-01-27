@@ -34,7 +34,7 @@ npm run admin
 
 Words are store into `words.sqlite` file
 
-Firstly, we must be generate `dict.html` file from words database to create kinlde dictionary
+Firstly, we must generate `dict.html` file from words database to create kinlde dictionary
 
 to do this, run this command 
 
