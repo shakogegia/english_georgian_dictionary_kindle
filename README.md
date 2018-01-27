@@ -7,7 +7,7 @@ Basic Crud operations on words database
 
 You can view/add/edit/delete words from database
 
-![alt text](./screenshots/admin.png "Admin Panel")
+![alt text](./screenshots/admin_panel.png "Admin Panel")
 
 <p align="center"> 
 <img src="./screenshots/kindle.png">
