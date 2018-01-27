@@ -1,4 +1,5 @@
 # English to Georgian Dictionary for Kindle e-Readers
+To get dictionary got Releases tab and download `dict.mobi` file.
 
 ## Admin Panel
 
