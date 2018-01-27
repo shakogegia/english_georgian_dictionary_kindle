@@ -1,4 +1,4 @@
-# English To Georgian Dictionary for Kindle e-readers
+# English to Georgian Dictionary for Kindle e-Readers
 
 ## Admin Panel
 
