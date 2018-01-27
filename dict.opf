@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package unique-identifier="uid">
+    <metadata>
+        <dc-metadata xmlns:dc="http://purl.org/metadata/dublin_core" xmlns:oebpackage="http://openebook.org/namespaces/oeb-package/1.0/">
+            <dc:Title>English to Georgian Dictionary</dc:Title>
+            <dc:Language>en-us</dc:Language>
+            <dc:Creator>Shalva Gegia</dc:Creator>
+            <dc:Description>English to Georgian Dictionary</dc:Description>
+            <dc:Date>28-01-2018</dc:Date>
+        </dc-metadata>
+        <x-metadata>
+            <output encoding='utf-8' content-type="text/x-oeb1-document"></output>
+            <EmbeddedCover>dict.png</EmbeddedCover>
+            <!-- That's how it's recognized as a dictionary: -->
+            <DictionaryInLanguage>en-us</DictionaryInLanguage>
+            <DictionaryOutLanguage>ka-ge</DictionaryOutLanguage>
+        </x-metadata>
+    </metadata>
+    <manifest>
+        <item id="item1" media-type="text/x-oeb1-document" href="dict.html"></item>
+        <item id="cover" media-type="image/png" href="dict.png"></item>
+    </manifest>
+    <spine toc="toc">
+        <itemref idref="item1" />
+    </spine>
+    <guide>
+        <reference type="toc" title="Table of Contents" href="dict.html#toc"></reference>
+    </guide>
+</package>
