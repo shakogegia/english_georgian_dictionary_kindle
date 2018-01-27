@@ -43,7 +43,8 @@ npm run generate
 ```
 This command will generate `dict.html` from `words.sqlite` databse
 
-After this, download KindleGen to generate `.mobi` -> dictionary file from `dict.html` and `dict.opf` files
+After this, download [KindleGen](https://www.amazon.com/gp/feature.html?docId=1000765211)
+ to generate `.mobi` dictionary file from `dict.html` and `dict.opf` files
 
 Unzip and cd into kindlegen folder.
 
