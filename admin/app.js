@@ -5,7 +5,7 @@ var app = new Vue({
         count: 0,
         page: 0,
         limit: 10,
-        api: "http://localhost:3000"
+        api: "http://localhost:3000",
     },
     computed: {
         pages() {

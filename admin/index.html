@@ -37,42 +37,51 @@
                 </header>
                 <div class="content">
                     <table class="table">
-                            <thead>
-                                <tr>
-                                    <th width="5"><abbr title="Position">#</abbr></th>
-                                    <th>Word</th>
-                                    <th>Translation</th>
-                                    <th width="140">Action</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr v-for="item in words">
-                                    <th><abbr title="Position">#</abbr></th>
-                                    <th><input type="text" class="input" v-model="item.word"></th>
-                                    <th><input type="text" class="input" v-model="item.translation"></th>
-                                    <th>
-                                        <button class="button is-success" @click="save(item)" :class="{'is-loading': item.isLoading}">
-                                            Save
-                                        </button>
-                                        <button class="button is-danger" @click="remove(item)" :class="{'is-loading': item.isLoading}">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
-                                    </th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <tr>
-            
-                                </tr>
-                            </tbody>
-                        </table>
+                        <thead>
+                            <tr>
+                                <th width="5"><abbr title="Position">#</abbr></th>
+                                <th>Word</th>
+                                <th>Translation</th>
+                                <th width="140">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item, i) in words">
+                                <th><abbr title="Position">#</abbr></th>
+                                <th><input type="text" class="input" :tabindex="i+2" v-model="item.word"></th>
+                                <th><input type="text" class="input" :tabindex="i+3" v-model="item.translation"></th>
+                                <th>
+                                    <button class="button is-success" @click="save(item)" :class="{'is-loading': item.isLoading}">
+                                        Save
+                                    </button>
+                                    <button class="button is-danger" @click="remove(item)" :class="{'is-loading': item.isLoading}">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="field has-addons">
+                <p class="control">
+                    <button :disabled="page<1" class="button" @click="goTo(page)">
+                        <span>
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </p>
                 <p class="control" v-for="n in pages">
-                    <a class="button" @click="goTo(n)">
+                    <a class="button" @click="goTo(n)" :class="{'is-primary': n === page+1}">
                         <span>{{n}}</span>
                     </a>
+                </p>
+                <p class="control">
+                    <button :disabled="(page+1)===pages" class="button" @click="goTo(page+2)">
+                        <span>
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </span>
+                    </button>
                 </p>
             </div>
         </div>
