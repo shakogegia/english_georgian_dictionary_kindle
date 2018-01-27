@@ -25,7 +25,24 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Word Database
+                        Show: &nbsp;
+                        <select v-model="limit" @change="init()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        &nbsp; Sort By: &nbsp;
+                        <select v-model="sort" @change="init()">
+                            <option value="id">ID</option>
+                            <option value="word">Word</option>
+                            <option value="translation">Translation</option>
+                        </select>
+                        &nbsp; Order By: &nbsp;
+                        <select v-model="order" @change="init()">
+                            <option value="asc">Asc</option>
+                            <option value="desc">Descending</option>
+                        </select>
                     </p>
                     <div class="columns">
                         <div class="column">
@@ -40,6 +57,7 @@
                         <thead>
                             <tr>
                                 <th width="5"><abbr title="Position">#</abbr></th>
+                                <th width="5">ID</th>
                                 <th>Word</th>
                                 <th>Translation</th>
                                 <th width="140">Action</th>
@@ -47,7 +65,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="(item, i) in words">
-                                <th><abbr title="Position">#</abbr></th>
+                                <th>{{limit*page+i+1}}</th>
+                                <th>{{item.id}}</th>
                                 <th><input type="text" class="input" :tabindex="i+2" v-model="item.word"></th>
                                 <th><input type="text" class="input" :tabindex="i+3" v-model="item.translation"></th>
                                 <th>

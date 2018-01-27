@@ -5,6 +5,8 @@ var app = new Vue({
         count: 0,
         page: 0,
         limit: 10,
+        sort: "word",
+        order: "asc",
         api: "http://localhost:3000",
     },
     computed: {
@@ -24,7 +26,7 @@ var app = new Vue({
             return axios.get(this.api + "/count")
         },
         getWordList() {
-            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}`)
+            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}`)
                 .then(response => {
                     this.words = response.data
                 })

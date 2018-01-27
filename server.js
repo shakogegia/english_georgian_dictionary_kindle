@@ -60,7 +60,7 @@ app.get('/delete', (request, response) => {
 })
 
 app.get('/fetch', (request, response) => {
-    db.all(`SELECT *, 0 as isLoading FROM words ORDER BY word LIMIT ${(request.query.offset || 0)}, ${(request.query.limit || 10)} `, [], (err, rows) => {
+    db.all(`SELECT *, 0 as isLoading FROM words ORDER BY ${(request.query.sort || 'word')} ${(request.query.order || 'asc')} LIMIT ${(request.query.offset || 0)}, ${(request.query.limit || 10)} `, [], (err, rows) => {
         if (err) {
             throw new Error(err)
         }
