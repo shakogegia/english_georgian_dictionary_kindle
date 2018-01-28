@@ -20,14 +20,33 @@ app.get('/', (request, response) => {
 })
 
 app.get('/count', (request, response) => {
-    db.serialize(() => {
-        db.each(`SELECT count(*) as count FROM words`, (err, row) => {
-            if (err) {
-                throw new Error(err)
-            }
-            
-            response.send(row)
+    let sqlString = ''
+
+    if(request.query.filter == 1) {
+        sqlString = ' WHERE translation IS NOT NULL'
+    } else if(request.query.filter == 2) {
+        sqlString = ' WHERE translation IS NULL'
+    }
+
+    db.all(`SELECT count(*) as count FROM words ${sqlString}`, [], (err, rows) => {
+        if (err) {
+            throw new Error(err)
+        }
+
+        db.serialize(() => {
+            db.each(`SELECT count(*) - count(translation) untranslated, count(translation) translated, count(*) total FROM words;`, (err, row) => {
+                if (err) {
+                    throw new Error(err)
+                }
+                
+                result = rows[0]
+                result.translated = row.translated
+                result.untranslated = row.untranslated
+                result.total = row.total
+                response.send(result)
+            });
         });
+        
     });
 })
 
@@ -60,7 +79,15 @@ app.get('/delete', (request, response) => {
 })
 
 app.get('/fetch', (request, response) => {
-    db.all(`SELECT *, 0 as isLoading FROM words ORDER BY ${(request.query.sort || 'word')} ${(request.query.order || 'asc')} LIMIT ${(request.query.offset || 0)}, ${(request.query.limit || 10)} `, [], (err, rows) => {
+    let sqlString = ''
+
+    if(request.query.filter == 1) {
+        sqlString = ' WHERE translation IS NOT NULL'
+    } else if(request.query.filter == 2) {
+        sqlString = ' WHERE translation IS NULL'
+    }
+    
+    db.all(`SELECT *, 0 as isLoading FROM words ${sqlString} ORDER BY ${(request.query.sort || 'word')} ${(request.query.order || 'asc')} LIMIT ${(request.query.offset || 0)}, ${(request.query.limit || 10)} `, [], (err, rows) => {
         if (err) {
             throw new Error(err)
         }

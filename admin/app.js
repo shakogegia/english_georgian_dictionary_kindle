@@ -1,17 +1,23 @@
+Vue.component('paginate', VuejsPaginate)
+
 var app = new Vue({
     el: '#app',
     data: {
         words: [],
+        translated: 0,
+        untranslated: 0,
+        total: 0,
         count: 0,
         page: 0,
         limit: 10,
         sort: "word",
         order: "asc",
+        filter: "0",
         api: "http://localhost:3000",
     },
     computed: {
         pages() {
-            return Math.ceil(this.count / this.limit)
+            return Math.ceil(this.count / this.limit);
         }
     },
     methods: {
@@ -19,14 +25,17 @@ var app = new Vue({
             this.getWordCount()
                 .then(response => {
                     this.count = response.data.count
+                    this.translated = response.data.translated
+                    this.untranslated = response.data.untranslated
+                    this.total = response.data.total
                     this.getWordList()
                 })
         },
         getWordCount() {
-            return axios.get(this.api + "/count")
+            return axios.get(`${this.api}/count?filter=${this.filter}`)
         },
         getWordList() {
-            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}`)
+            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}&filter=${this.filter}`)
                 .then(response => {
                     this.words = response.data
                 })
@@ -75,4 +84,4 @@ var app = new Vue({
     mounted(){
         this.init()
     }
-})
+});
