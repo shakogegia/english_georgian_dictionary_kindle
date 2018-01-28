@@ -31,8 +31,8 @@ class Crawler {
 
     translateWords(rows) {
         let promises = []
-        rows.forEach((row) => {
-            promises.push(this.translate(row))
+        rows.forEach((row, i) => {
+            promises.push(this.translate(row, i))
         })
 
         const vm = this
@@ -46,26 +46,28 @@ class Crawler {
         });
     }
 
-    translate(row) {
+    translate(row, i) {
         const  vm = this
         return new Promise(function(resolve, reject) {
-            google(row.word, {from: 'en', to: 'ka'}).then(res => {
-                // console.log("TEXT::", res.text, row.word);
-                // console.log("AUTO::", res.from.text.autoCorrected);
-                // console.log("VAL::", res.from.text.value);
-                // console.log("MEAN::", res.from.text.didYouMean);
-    
-                if(!res.from.text.autoCorrected && !res.from.text.didYouMean && res.text && res.text.trim().toLowerCase() !== row.word.trim().toLowerCase()) {
-                    vm.update(row, res.text)
-                    resolve(1)
-                } else {
-                    resolve(0)
-                }
-    
-            }).catch(err => {
-                // console.error(err);
-                reject(err)
-            });
+            setTimeout(() => {
+                google(row.word, {from: 'en', to: 'ka'}).then(res => {
+                    // console.log("TEXT::", res.text, row.word);
+                    // console.log("AUTO::", res.from.text.autoCorrected);
+                    // console.log("VAL::", res.from.text.value);
+                    // console.log("MEAN::", res.from.text.didYouMean);
+        
+                    if(!res.from.text.autoCorrected && !res.from.text.didYouMean && res.text && res.text.trim().toLowerCase() !== row.word.trim().toLowerCase()) {
+                        vm.update(row, res.text)
+                        resolve(1)
+                    } else {
+                        resolve(0)
+                    }
+        
+                }).catch(err => {
+                    // console.error(err);
+                    reject(err)
+                });
+            }, i*20);
         })
     }
    

@@ -1,6 +1,12 @@
 # English to Georgian Dictionary for Kindle e-Readers
 To get dictionary go to the Releases tab and download `dict.mobi` file.
 
+Current State:
+
+```
+Total Words: [58107] Translated: [40533] Untranslated: [17574]
+```
+
 ## Admin Panel
 
 Basic Crud operations on words database
