@@ -45,35 +45,72 @@
                     </div>
                 </div>
         </section>
+        <section class="hero">
+            <div class="hero-body" style="padding-bottom: 0">
+                <div class="container">
+                    <div class="columns">
+                        <form class="column" v-on:submit.prevent="init()">
+                            <div class="field has-addons">
+                                <div class="control  is-expanded">
+                                    <input class="input" v-model="searchTerm" type="text" placeholder="Find Word">
+                                </div>
+                                <p class="control">
+                                    <span class="select">
+                                        <select v-model="searchMode"> 
+                                            <option value="contains">Contains</option>
+                                            <option value="equals">Equals</option>
+                                            <option value="starts">Starts with</option>
+                                            <option value="ends">Ends with</option>
+                                        </select>
+                                    </span>
+                                </p>
+                                <div class="control">
+                                    <button type="submit" class="button is-success">
+                                        Search
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </section>
         <section class="section">
             <div class="container">
                 <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">
                             Show: &nbsp;
-                            <select v-model="limit" @change="init()">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>
+                            <span class="select">
+                                <select v-model="limit" @change="init()">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </span>
                             &nbsp; Sort By: &nbsp;
-                            <select v-model="sort" @change="init()">
-                                <option value="id">ID</option>
-                                <option value="word">Word</option>
-                                <option value="translation">Translation</option>
-                            </select>
+                            <span class="select">
+                                <select v-model="sort" @change="init()">
+                                    <option value="id">ID</option>
+                                    <option value="word">Word</option>
+                                    <option value="translation">Translation</option>
+                                </select>
+                            </span>
                             &nbsp; Order By: &nbsp;
-                            <select v-model="order" @change="init()">
-                                <option value="asc">Asc</option>
-                                <option value="desc">Descending</option>
-                            </select>
+                            <span class="select">                        
+                                <select v-model="order" @change="init()">
+                                    <option value="asc">Asc</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </span>
                             &nbsp; Filter: &nbsp;
-                            <select v-model="filter" @change="init()">
-                                <option value="0">All</option>
-                                <option value="1">Translated</option>
-                                <option value="2">Whithout Translation</option>
-                            </select>
+                            <span class="select">                        
+                                <select v-model="filter" @change="init()">
+                                    <option value="0">All</option>
+                                    <option value="1">Translated</option>
+                                    <option value="2">Whithout Translation</option>
+                                </select>
+                            </span>
                         </p>
                         <a href="#" class="card-header-icon" aria-label="more options" @click="add()">
                             <span class="icon">
@@ -112,7 +149,7 @@
                     </div>
                     <footer class="card-footer">
                         <a href="#" class="card-footer-item">
-                            <span>Total Words count: {{ count }}</span>
+                            <span>Total Words in Table: {{ count }}</span>
                         </a>
                     </footer>
                 </div>

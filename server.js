@@ -23,12 +23,32 @@ app.get('/count', (request, response) => {
     let sqlString = ''
 
     if(request.query.filter == 1) {
-        sqlString = ' WHERE translation IS NOT NULL'
+        sqlString = ' AND translation IS NOT NULL'
     } else if(request.query.filter == 2) {
-        sqlString = ' WHERE translation IS NULL'
+        sqlString = ' AND translation IS NULL'
     }
+    
+    let sqlString1 = ''
 
-    db.all(`SELECT count(*) as count FROM words ${sqlString}`, [], (err, rows) => {
+    if(request.query.searchTerm) {
+        const term = request.query.searchTerm
+        switch (request.query.searchMode) {
+            case 'contains':
+                sqlString1 = ` AND word like '%${term}%' `
+                break;
+            case 'starts':
+                sqlString1 = ` AND word like '${term}%' `
+                break;
+            case 'ends':
+                sqlString1 = ` AND word like '%${term}' `
+                break;
+            default:
+                sqlString1 = ` AND word = '${term}' `
+                break;
+        }
+    }
+    
+    db.all(`SELECT count(*) as count FROM words WHERE 1=1 ${sqlString} ${sqlString1}`, [], (err, rows) => {
         if (err) {
             throw new Error(err)
         }
@@ -82,12 +102,32 @@ app.get('/fetch', (request, response) => {
     let sqlString = ''
 
     if(request.query.filter == 1) {
-        sqlString = ' WHERE translation IS NOT NULL'
+        sqlString = ' AND translation IS NOT NULL'
     } else if(request.query.filter == 2) {
-        sqlString = ' WHERE translation IS NULL'
+        sqlString = ' AND translation IS NULL'
+    }
+
+    let sqlString1 = ''
+
+    if(request.query.searchTerm) {
+        const term = request.query.searchTerm
+        switch (request.query.searchMode) {
+            case 'contains':
+                sqlString1 = ` AND word like '%${term}%' `
+                break;
+            case 'starts':
+                sqlString1 = ` AND word like '${term}%' `
+                break;
+            case 'ends':
+                sqlString1 = ` AND word like '%${term}' `
+                break;
+            default:
+                sqlString1 = ` AND word = '${term}' `
+                break;
+        }
     }
     
-    db.all(`SELECT *, 0 as isLoading FROM words ${sqlString} ORDER BY ${(request.query.sort || 'word')} ${(request.query.order || 'asc')} LIMIT ${(request.query.offset || 0)}, ${(request.query.limit || 10)} `, [], (err, rows) => {
+    db.all(`SELECT *, 0 as isLoading FROM words WHERE 1=1 ${sqlString} ${sqlString1} ORDER BY ${(request.query.sort || 'word')} ${(request.query.order || 'asc')} LIMIT ${(request.query.offset || 0)}, ${(request.query.limit || 10)} `, [], (err, rows) => {
         if (err) {
             throw new Error(err)
         }

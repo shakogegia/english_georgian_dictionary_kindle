@@ -10,6 +10,8 @@ var app = new Vue({
         count: 0,
         page: 0,
         limit: 10,
+        searchTerm: "",
+        searchMode: "equals",
         sort: "word",
         order: "asc",
         filter: "0",
@@ -32,10 +34,10 @@ var app = new Vue({
                 })
         },
         getWordCount() {
-            return axios.get(`${this.api}/count?filter=${this.filter}`)
+            return axios.get(`${this.api}/count?filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}`)
         },
         getWordList() {
-            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}&filter=${this.filter}`)
+            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}&filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}`)
                 .then(response => {
                     this.words = response.data
                 })
