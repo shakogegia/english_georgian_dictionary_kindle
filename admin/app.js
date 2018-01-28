@@ -1,5 +1,15 @@
 Vue.component('paginate', VuejsPaginate)
 
+const getParameterByName = function(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -8,13 +18,14 @@ var app = new Vue({
         untranslated: 0,
         total: 0,
         count: 0,
-        page: 0,
-        limit: 10,
-        searchTerm: "",
-        searchMode: "equals",
-        sort: "word",
-        order: "asc",
-        filter: "0",
+        page: parseInt(getParameterByName('page')) || 0,
+        limit: getParameterByName('limit') || 10,
+        searchField: getParameterByName('searchField') || "word",
+        searchTerm: getParameterByName('searchTerm') || "",
+        searchMode: getParameterByName('searchMode') || "equals",
+        sort: getParameterByName('sort') || "word",
+        order: getParameterByName('order') || "asc",
+        filter: getParameterByName('filter') || "0",
         api: "http://localhost:3000",
     },
     computed: {
@@ -34,12 +45,14 @@ var app = new Vue({
                 })
         },
         getWordCount() {
-            return axios.get(`${this.api}/count?filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}`)
+            return axios.get(`${this.api}/count?filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}&searchField=${this.searchField}`)
         },
         getWordList() {
-            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}&filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}`)
+            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}&filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}&searchField=${this.searchField}`)
                 .then(response => {
                     this.words = response.data
+
+                    this.updateUrl()
                 })
         },
         goTo(page) {
@@ -81,7 +94,29 @@ var app = new Vue({
                     this.getWordList()
                 })
             }
-        }
+        },
+        reset(){
+            var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.location.href = newurl;
+        },
+        updateUrl() {
+            if (history.pushState) {
+                const params = [
+                    {'searchField': this.searchField},
+                    {'searchTerm': this.searchTerm},
+                    {'searchMode': this.searchMode},
+                    {'page': this.page},
+                    {'limit': this.limit},
+                    {'sort': this.sort},
+                    {'order': this.order},
+                    {'filter': this.filter},
+                ]
+                let queryString = "";
+                params.forEach(item => queryString += `&${Object.keys(item)}=${Object.values(item)}`)
+                var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + queryString;
+                window.history.pushState({path:newurl},'',newurl);
+            }
+        },
     },
     mounted(){
         this.init()

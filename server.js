@@ -22,6 +22,12 @@ app.get('/', (request, response) => {
 
 app.get('/count', (request, response) => {
     let sqlString = ''
+    let sqlString1 = ''
+    let fieldName = 'word'
+    
+    if(request.query.searchField == 'translation') {
+        fieldName = 'translation'
+    }
 
     if(request.query.filter == 1) {
         sqlString = ' AND translation IS NOT NULL'
@@ -29,22 +35,21 @@ app.get('/count', (request, response) => {
         sqlString = ' AND translation IS NULL'
     }
     
-    let sqlString1 = ''
 
     if(request.query.searchTerm) {
         const term = request.query.searchTerm
         switch (request.query.searchMode) {
             case 'contains':
-                sqlString1 = ` AND word like '%${term}%' `
+                sqlString1 = ` AND ${fieldName} like '%${term}%' `
                 break;
             case 'starts':
-                sqlString1 = ` AND word like '${term}%' `
+                sqlString1 = ` AND ${fieldName} like '${term}%' `
                 break;
             case 'ends':
-                sqlString1 = ` AND word like '%${term}' `
+                sqlString1 = ` AND ${fieldName} like '%${term}' `
                 break;
             default:
-                sqlString1 = ` AND word = '${term}' `
+                sqlString1 = ` AND ${fieldName} = '${term}' `
                 break;
         }
     }
@@ -101,6 +106,12 @@ app.get('/delete', (request, response) => {
 
 app.get('/fetch', (request, response) => {
     let sqlString = ''
+    let sqlString1 = ''
+    let fieldName = 'word'
+    
+    if(request.query.searchField == 'translation') {
+        fieldName = 'translation'
+    }
 
     if(request.query.filter == 1) {
         sqlString = ' AND translation IS NOT NULL'
@@ -108,22 +119,21 @@ app.get('/fetch', (request, response) => {
         sqlString = ' AND translation IS NULL'
     }
 
-    let sqlString1 = ''
 
     if(request.query.searchTerm) {
         const term = request.query.searchTerm
         switch (request.query.searchMode) {
             case 'contains':
-                sqlString1 = ` AND word like '%${term}%' `
+                sqlString1 = ` AND ${fieldName} like '%${term}%' `
                 break;
             case 'starts':
-                sqlString1 = ` AND word like '${term}%' `
+                sqlString1 = ` AND ${fieldName} like '${term}%' `
                 break;
             case 'ends':
-                sqlString1 = ` AND word like '%${term}' `
+                sqlString1 = ` AND ${fieldName} like '%${term}' `
                 break;
             default:
-                sqlString1 = ` AND word = '${term}' `
+                sqlString1 = ` AND ${fieldName} = '${term}' `
                 break;
         }
     }
