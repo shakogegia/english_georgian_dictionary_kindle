@@ -7,16 +7,19 @@
     "colors": "^1.1.2",
     "commander": "^2.13.0",
     "express": "^4.16.2",
+    "google-translate-api": "^2.3.0",
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "nodemon": "^1.14.11"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "node generate.js",
     "admin": "http-server ./admin",
-    "server": "nodemon server.js --harmony"
+    "server": "nodemon server.js --harmony",
+    "crawler:google": "node crawler/google.js"
   },
   "repository": {
     "type": "git",

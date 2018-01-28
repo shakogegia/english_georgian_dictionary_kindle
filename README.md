@@ -31,6 +31,18 @@ run admin panel by running command
 npm run admin
 ```
 
+### Translation
+
+`crawler/google.js` is service, which translates words without translations in the DB from google translate api
+
+run crawler
+
+```bash
+npm run crawler:google 10
+```
+
+You can pass argument like `10`, and crawler will translate same amount of words at one time
+
 ### Generating Dictionary
 
 Words are store into `words.sqlite` file
