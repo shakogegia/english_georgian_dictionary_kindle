@@ -7,6 +7,10 @@ Current State:
 Total Words: [58107] Translated: [40533] Untranslated: [17574]
 ```
 
+<p align="center"> 
+<img src="./screenshots/kindle.png">
+</p>
+
 ## Admin Panel
 
 Basic Crud operations on words database
@@ -14,10 +18,6 @@ Basic Crud operations on words database
 You can view/add/edit/delete words from database
 
 ![alt text](./screenshots/admin_panel.png "Admin Panel")
-
-<p align="center"> 
-<img src="./screenshots/kindle.png">
-</p>
 
 ### Installation
 Download Repository and cd into it
