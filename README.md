@@ -24,17 +24,17 @@ Download Repository and cd into it
 
 Install dependencies
 ```bash
-npm i
+yarn
 ```
 
 run server by running command
 ```bash
-npm run server
+yarn run server
 ```
 
 run admin panel by running command
 ```bash
-npm run admin
+yarn run admin
 ```
 
 ### Translation
@@ -44,7 +44,7 @@ npm run admin
 run crawler
 
 ```bash
-npm run crawler:google 10
+yarn run crawler:google 10
 ```
 
 You can pass argument like `10`, and crawler will translate same amount of words at one time
@@ -58,7 +58,7 @@ Firstly, we must generate `dict.html` file from words database to create kinlde 
 to do this, run this command 
 
 ```bash
-npm run generate
+yarn run generate
 ```
 This command will generate `dict.html` from `words.sqlite` databse
 

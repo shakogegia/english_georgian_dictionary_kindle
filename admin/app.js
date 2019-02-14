@@ -31,6 +31,9 @@ var app = new Vue({
     computed: {
         pages() {
             return Math.ceil(this.count / this.limit);
+        },
+        offset() {
+            return this.limit*(this.page-1)
         }
     },
     methods: {
@@ -48,7 +51,7 @@ var app = new Vue({
             return axios.get(`${this.api}/count?filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}&searchField=${this.searchField}`)
         },
         getWordList() {
-            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${(this.limit*this.page)}&sort=${this.sort}&order=${this.order}&filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}&searchField=${this.searchField}`)
+            axios.get(`${this.api}/fetch?limit=${this.limit}&offset=${this.offset}&sort=${this.sort}&order=${this.order}&filter=${this.filter}&searchTerm=${this.searchTerm}&searchMode=${this.searchMode}&searchField=${this.searchField}`)
                 .then(response => {
                     this.words = response.data
 
@@ -56,7 +59,8 @@ var app = new Vue({
                 })
         },
         goTo(page) {
-            this.page = page - 1
+            // this.page = page - 1
+            this.page = page
             this.getWordList()
         },
         save(word) {
@@ -80,7 +84,8 @@ var app = new Vue({
                     word.isLoading = false
                 })
         },
-        add(){
+        add(e){
+            e.preventDefault();
             this.words.push({
                 word: null,
                 translation: null,

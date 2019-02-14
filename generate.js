@@ -14,7 +14,7 @@ class Generate {
 			
 			this.fetchWords()
 		});
-  	}
+	}
 
 	fetchWords() {
 		this.db.all(`SELECT * FROM words WHERE translation IS NOT NULL ORDER BY word`, [], (err, rows) => {
