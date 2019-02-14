@@ -71,12 +71,12 @@ Download repository and extract it to ```~/Desktop/dict/```
 
 to generate dictionary file run this command
 ```bash
-/Users/ADMIN/Desktop/kindlegen/kindlegen ~/Desktop/dict/dict.opf
+yarn run build
 ```
 
-After this, you should see `dict.mobi` file inside repository file
+After this, you should see `dict.mobi` file inside repository folder
 ```file
- ~/Desktop/dict/dict.mobi
+dict.mobi
 ```
 
 Thats it! 
